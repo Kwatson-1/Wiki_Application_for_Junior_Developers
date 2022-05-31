@@ -1,0 +1,19 @@
+C:\Users\30048165\Source\Repos\MyLists\bin\Debug\MyLists.exe.config
+C:\Users\30048165\Source\Repos\MyLists\bin\Debug\MyLists.exe
+C:\Users\30048165\Source\Repos\MyLists\bin\Debug\MyLists.pdb
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.csproj.AssemblyReference.cache
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.csproj.SuggestedBindingRedirects.cache
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.MyLists.resources
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.Properties.Resources.resources
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.csproj.GenerateResource.cache
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.csproj.CoreCompileInputs.cache
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.exe
+C:\Users\30048165\Source\Repos\MyLists\obj\Debug\MyLists.pdb
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.csproj.AssemblyReference.cache
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.csproj.SuggestedBindingRedirects.cache
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.MyLists.resources
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.Properties.Resources.resources
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.csproj.GenerateResource.cache
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.csproj.CoreCompileInputs.cache
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.exe
+D:\Semester2\C Sharp Two\Assessments\MyLists\obj\Debug\MyLists.pdb
