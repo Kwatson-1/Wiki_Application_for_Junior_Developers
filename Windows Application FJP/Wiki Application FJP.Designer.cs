@@ -29,8 +29,8 @@ namespace Windows_Application_FJP
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStripLabel = new System.Windows.Forms.StatusStrip();
+            this.toolStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewDisplay = new System.Windows.Forms.ListView();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textBoxInput = new System.Windows.Forms.TextBox();
@@ -50,24 +50,24 @@ namespace Windows_Application_FJP
             this.label3 = new System.Windows.Forms.Label();
             this.listViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusStrip1.SuspendLayout();
+            this.statusStripLabel.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // statusStripLabel
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 389);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(484, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStripLabel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStatusStrip});
+            this.statusStripLabel.Location = new System.Drawing.Point(0, 389);
+            this.statusStripLabel.Name = "statusStripLabel";
+            this.statusStripLabel.Size = new System.Drawing.Size(484, 22);
+            this.statusStripLabel.TabIndex = 0;
+            this.statusStripLabel.Text = "statusStripLabel";
             // 
-            // toolStripStatusLabel1
+            // toolStatusStrip
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStatusStrip.Name = "toolStatusStrip";
+            this.toolStatusStrip.Size = new System.Drawing.Size(0, 17);
             // 
             // listViewDisplay
             // 
@@ -83,6 +83,7 @@ namespace Windows_Application_FJP
             this.listViewDisplay.View = System.Windows.Forms.View.Details;
             this.listViewDisplay.SelectedIndexChanged += new System.EventHandler(this.listViewDisplay_SelectedIndexChanged);
             this.listViewDisplay.Click += new System.EventHandler(this.listViewDisplay_Click);
+            this.listViewDisplay.DoubleClick += new System.EventHandler(this.listViewDisplay_DoubleClick);
             // 
             // buttonSearch
             // 
@@ -127,6 +128,7 @@ namespace Windows_Application_FJP
             this.buttonDelete.TabIndex = 6;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // comboBoxCategory
             // 
@@ -171,6 +173,7 @@ namespace Windows_Application_FJP
             this.buttonOpen.TabIndex = 11;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonSave
             // 
@@ -180,6 +183,7 @@ namespace Windows_Application_FJP
             this.buttonSave.TabIndex = 12;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // textBoxDefinition
             // 
@@ -261,14 +265,14 @@ namespace Windows_Application_FJP
             this.Controls.Add(this.textBoxInput);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.listViewDisplay);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStripLabel);
             this.Controls.Add(this.groupBoxRadioButtons);
             this.HelpButton = true;
             this.Name = "Application";
             this.Text = "Wiki Application FJP";
             this.Load += new System.EventHandler(this.Application_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStripLabel.ResumeLayout(false);
+            this.statusStripLabel.PerformLayout();
             this.groupBoxRadioButtons.ResumeLayout(false);
             this.groupBoxRadioButtons.PerformLayout();
             this.ResumeLayout(false);
@@ -278,8 +282,8 @@ namespace Windows_Application_FJP
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip statusStripLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStatusStrip;
         private System.Windows.Forms.ListView listViewDisplay;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.TextBox textBoxInput;
