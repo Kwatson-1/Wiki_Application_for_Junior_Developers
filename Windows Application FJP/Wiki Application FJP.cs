@@ -19,30 +19,24 @@ namespace Windows_Application_FJP
         }
 
         List<Information> infoCollection = new List<Information>();
-        static String[] categoryArray = new String[6]{ "Array", "List", "Tree", "Graph", "Abstract", "Hash" };
+        static String[] categoryArray = new String[6]{ "Abstract", "Array", "Graph", "Hash", "List", "Tree",  };
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             Information info = new Information();
             //Set name to text box input.
             info.Name = textBoxName.Text.Trim();
-            //Set name to checked radio button.
-            if (radioButtonLinear.Checked)
-            {
-                info.Category = "Linear";
-            }
-            else
-            {
-                info.Category = "Non-Linear";
-            }
+            //Returns structure type string equal to the checked radio button.
+            info.Structure = CheckStructureType();
             //Set category to selected item in combobox
             info.Category = comboBoxCategory.Text;
             //Set definition to text box input.
             info.Definition = textBoxDefinition.Text.Trim();
             //Add object to List
             infoCollection.Add(info);
-
+            listViewDisplay.Items.Clear();
             DisplayList();
+            Console.WriteLine(Information.ToString(info));
         }
 
         #region Useless Methods
@@ -52,6 +46,10 @@ namespace Windows_Application_FJP
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+        private void listViewDisplay_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -76,11 +74,56 @@ namespace Windows_Application_FJP
             }
 
         }
+
         //If the textBoxName exists in the infoCollection List<Information> then function will return false meaning the name is not valid
         private Boolean ValidName(String textBoxName)
         {
             return !infoCollection.Exists(info => info.Name.Equals(textBoxName));
         }
+        //Returns a string value dependent on which radio button is checked
+        public String CheckStructureType()
+        {
+            if (radioButtonLinear.Checked)
+            {
+                return "Linear";
+            }
+            else
+            {
+                return "Non-Linear";
+            }
+        }
+        //Accepts the index of the item selected in the listView and returns it so that the appropriate structure radioButton is selected.
+        public void CheckRadioType(int i)
+        {
+            if (infoCollection[i].Structure.Equals("Linear"))
+            {
+                radioButtonLinear.Checked = true;
+            }
+            else
+            {
+                radioButtonNonLinear.Checked = true;
+            }
+        }
+        //Returns the details of the selected Information item selected
+        private void listViewDisplay_Click(object sender, EventArgs e)
+        {
+            int selectedRecord = listViewDisplay.SelectedIndices[0];
+            textBoxName.Text = infoCollection[selectedRecord].Name;
+            CheckRadioType(selectedRecord);
+            CheckCategoryType(selectedRecord);
+            
 
+
+        }
+        private void CheckCategoryType(int var)
+        {
+            for(int i = 0; i<categoryArray.Length-1; i++)
+            {
+                if (infoCollection[var].Category.Equals(categoryArray[i]))
+                {
+                    comboBoxCategory.SelectedIndex = i;
+                }
+            }
+        }
     }
 }

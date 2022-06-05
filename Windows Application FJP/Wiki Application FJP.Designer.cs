@@ -81,6 +81,8 @@ namespace Windows_Application_FJP
             this.listViewDisplay.TabIndex = 1;
             this.listViewDisplay.UseCompatibleStateImageBehavior = false;
             this.listViewDisplay.View = System.Windows.Forms.View.Details;
+            this.listViewDisplay.SelectedIndexChanged += new System.EventHandler(this.listViewDisplay_SelectedIndexChanged);
+            this.listViewDisplay.Click += new System.EventHandler(this.listViewDisplay_Click);
             // 
             // buttonSearch
             // 
