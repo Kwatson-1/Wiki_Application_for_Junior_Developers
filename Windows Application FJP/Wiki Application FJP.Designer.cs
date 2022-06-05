@@ -48,6 +48,8 @@ namespace Windows_Application_FJP
             this.radioButtonNonLinear = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.listViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
@@ -69,12 +71,16 @@ namespace Windows_Application_FJP
             // 
             // listViewDisplay
             // 
+            this.listViewDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewName,
+            this.listViewCategory});
             this.listViewDisplay.HideSelection = false;
             this.listViewDisplay.Location = new System.Drawing.Point(252, 37);
             this.listViewDisplay.Name = "listViewDisplay";
             this.listViewDisplay.Size = new System.Drawing.Size(225, 347);
             this.listViewDisplay.TabIndex = 1;
             this.listViewDisplay.UseCompatibleStateImageBehavior = false;
+            this.listViewDisplay.View = System.Windows.Forms.View.Details;
             // 
             // buttonSearch
             // 
@@ -100,7 +106,7 @@ namespace Windows_Application_FJP
             this.buttonAdd.TabIndex = 4;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // buttonEdit
             // 
@@ -122,6 +128,7 @@ namespace Windows_Application_FJP
             // 
             // comboBoxCategory
             // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Location = new System.Drawing.Point(13, 90);
             this.comboBoxCategory.Name = "comboBoxCategory";
@@ -223,6 +230,16 @@ namespace Windows_Application_FJP
             this.label3.TabIndex = 17;
             this.label3.Text = "Definition";
             // 
+            // listViewName
+            // 
+            this.listViewName.Text = "Name";
+            this.listViewName.Width = 111;
+            // 
+            // listViewCategory
+            // 
+            this.listViewCategory.Text = "Category";
+            this.listViewCategory.Width = 110;
+            // 
             // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -278,6 +295,8 @@ namespace Windows_Application_FJP
         private System.Windows.Forms.RadioButton radioButtonNonLinear;
         private System.Windows.Forms.GroupBox groupBoxRadioButtons;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader listViewName;
+        private System.Windows.Forms.ColumnHeader listViewCategory;
     }
 }
 
