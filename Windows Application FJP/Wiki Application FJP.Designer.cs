@@ -32,8 +32,10 @@ namespace Windows_Application_FJP
             this.statusStripLabel = new System.Windows.Forms.StatusStrip();
             this.toolStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewDisplay = new System.Windows.Forms.ListView();
+            this.listViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.textBoxInput = new System.Windows.Forms.TextBox();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -48,8 +50,6 @@ namespace Windows_Application_FJP
             this.radioButtonNonLinear = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.listViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStripLabel.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +85,16 @@ namespace Windows_Application_FJP
             this.listViewDisplay.Click += new System.EventHandler(this.listViewDisplay_Click);
             this.listViewDisplay.DoubleClick += new System.EventHandler(this.listViewDisplay_DoubleClick);
             // 
+            // listViewName
+            // 
+            this.listViewName.Text = "Name";
+            this.listViewName.Width = 111;
+            // 
+            // listViewCategory
+            // 
+            this.listViewCategory.Text = "Category";
+            this.listViewCategory.Width = 110;
+            // 
             // buttonSearch
             // 
             this.buttonSearch.Location = new System.Drawing.Point(403, 10);
@@ -93,13 +103,15 @@ namespace Windows_Application_FJP
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // textBoxInput
+            // textBoxSearch
             // 
-            this.textBoxInput.Location = new System.Drawing.Point(252, 11);
-            this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(145, 20);
-            this.textBoxInput.TabIndex = 3;
+            this.textBoxSearch.Location = new System.Drawing.Point(252, 11);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(145, 20);
+            this.textBoxSearch.TabIndex = 3;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxInput_TextChanged);
             // 
             // buttonAdd
             // 
@@ -119,6 +131,7 @@ namespace Windows_Application_FJP
             this.buttonEdit.TabIndex = 5;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonDelete
             // 
@@ -164,6 +177,7 @@ namespace Windows_Application_FJP
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(150, 20);
             this.textBoxName.TabIndex = 10;
+            this.textBoxName.DoubleClick += new System.EventHandler(this.textBoxName_DoubleClick);
             // 
             // buttonOpen
             // 
@@ -236,16 +250,6 @@ namespace Windows_Application_FJP
             this.label3.TabIndex = 17;
             this.label3.Text = "Definition";
             // 
-            // listViewName
-            // 
-            this.listViewName.Text = "Name";
-            this.listViewName.Width = 111;
-            // 
-            // listViewCategory
-            // 
-            this.listViewCategory.Text = "Category";
-            this.listViewCategory.Width = 110;
-            // 
             // Application
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,7 +266,7 @@ namespace Windows_Application_FJP
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.textBoxInput);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.listViewDisplay);
             this.Controls.Add(this.statusStripLabel);
@@ -270,6 +274,7 @@ namespace Windows_Application_FJP
             this.HelpButton = true;
             this.Name = "Application";
             this.Text = "Wiki Application FJP";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Application_FormClosing);
             this.Load += new System.EventHandler(this.Application_Load);
             this.statusStripLabel.ResumeLayout(false);
             this.statusStripLabel.PerformLayout();
@@ -286,7 +291,7 @@ namespace Windows_Application_FJP
         private System.Windows.Forms.ToolStripStatusLabel toolStatusStrip;
         private System.Windows.Forms.ListView listViewDisplay;
         private System.Windows.Forms.Button buttonSearch;
-        private System.Windows.Forms.TextBox textBoxInput;
+        private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Button buttonDelete;
