@@ -16,7 +16,10 @@ namespace Wiki_Application_FJP
 
         public Information()
         {
-
+            name = Name;
+            category = Category;
+            structure = Structure;
+            definition = Definition;
         }
 
         public Information(string name, string category, string structure, string definition)
@@ -35,6 +38,11 @@ namespace Wiki_Application_FJP
         public int CompareTo(Information other)
         {
             return Name.CompareTo(other.name);
+        }
+        public static String ToString(Information info)
+        {
+            String output = String.Format("Name: {0}\nCategory: {1}\nStructure: {2}\nDefinition: {3}", info.Name, info.category, info.structure, info.Definition);
+            return output;
         }
     }
 }

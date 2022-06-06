@@ -29,11 +29,13 @@ namespace Windows_Application_FJP
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStripLabel = new System.Windows.Forms.StatusStrip();
+            this.toolStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewDisplay = new System.Windows.Forms.ListView();
+            this.listViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewCategory = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.textBoxInput = new System.Windows.Forms.TextBox();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
@@ -48,33 +50,50 @@ namespace Windows_Application_FJP
             this.radioButtonNonLinear = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.statusStrip1.SuspendLayout();
+            this.statusStripLabel.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
             // 
-            // statusStrip1
+            // statusStripLabel
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 389);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(484, 22);
-            this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStripLabel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStatusStrip});
+            this.statusStripLabel.Location = new System.Drawing.Point(0, 389);
+            this.statusStripLabel.Name = "statusStripLabel";
+            this.statusStripLabel.Size = new System.Drawing.Size(484, 22);
+            this.statusStripLabel.TabIndex = 0;
+            this.statusStripLabel.Text = "statusStripLabel";
             // 
-            // toolStripStatusLabel1
+            // toolStatusStrip
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStatusStrip.Name = "toolStatusStrip";
+            this.toolStatusStrip.Size = new System.Drawing.Size(0, 17);
             // 
             // listViewDisplay
             // 
+            this.listViewDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewName,
+            this.listViewCategory});
             this.listViewDisplay.HideSelection = false;
             this.listViewDisplay.Location = new System.Drawing.Point(252, 37);
             this.listViewDisplay.Name = "listViewDisplay";
             this.listViewDisplay.Size = new System.Drawing.Size(225, 347);
             this.listViewDisplay.TabIndex = 1;
             this.listViewDisplay.UseCompatibleStateImageBehavior = false;
+            this.listViewDisplay.View = System.Windows.Forms.View.Details;
+            this.listViewDisplay.SelectedIndexChanged += new System.EventHandler(this.listViewDisplay_SelectedIndexChanged);
+            this.listViewDisplay.Click += new System.EventHandler(this.listViewDisplay_Click);
+            this.listViewDisplay.DoubleClick += new System.EventHandler(this.listViewDisplay_DoubleClick);
+            // 
+            // listViewName
+            // 
+            this.listViewName.Text = "Name";
+            this.listViewName.Width = 111;
+            // 
+            // listViewCategory
+            // 
+            this.listViewCategory.Text = "Category";
+            this.listViewCategory.Width = 110;
             // 
             // buttonSearch
             // 
@@ -84,13 +103,15 @@ namespace Windows_Application_FJP
             this.buttonSearch.TabIndex = 2;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // textBoxInput
+            // textBoxSearch
             // 
-            this.textBoxInput.Location = new System.Drawing.Point(252, 11);
-            this.textBoxInput.Name = "textBoxInput";
-            this.textBoxInput.Size = new System.Drawing.Size(145, 20);
-            this.textBoxInput.TabIndex = 3;
+            this.textBoxSearch.Location = new System.Drawing.Point(252, 11);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(145, 20);
+            this.textBoxSearch.TabIndex = 3;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxInput_TextChanged);
             // 
             // buttonAdd
             // 
@@ -100,7 +121,7 @@ namespace Windows_Application_FJP
             this.buttonAdd.TabIndex = 4;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+            this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
             // buttonEdit
             // 
@@ -110,6 +131,7 @@ namespace Windows_Application_FJP
             this.buttonEdit.TabIndex = 5;
             this.buttonEdit.Text = "Edit";
             this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonDelete
             // 
@@ -119,9 +141,11 @@ namespace Windows_Application_FJP
             this.buttonDelete.TabIndex = 6;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // comboBoxCategory
             // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCategory.FormattingEnabled = true;
             this.comboBoxCategory.Location = new System.Drawing.Point(13, 90);
             this.comboBoxCategory.Name = "comboBoxCategory";
@@ -153,6 +177,7 @@ namespace Windows_Application_FJP
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(150, 20);
             this.textBoxName.TabIndex = 10;
+            this.textBoxName.DoubleClick += new System.EventHandler(this.textBoxName_DoubleClick);
             // 
             // buttonOpen
             // 
@@ -162,6 +187,7 @@ namespace Windows_Application_FJP
             this.buttonOpen.TabIndex = 11;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonSave
             // 
@@ -171,6 +197,7 @@ namespace Windows_Application_FJP
             this.buttonSave.TabIndex = 12;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // textBoxDefinition
             // 
@@ -239,17 +266,18 @@ namespace Windows_Application_FJP
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonAdd);
-            this.Controls.Add(this.textBoxInput);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.listViewDisplay);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStripLabel);
             this.Controls.Add(this.groupBoxRadioButtons);
             this.HelpButton = true;
             this.Name = "Application";
             this.Text = "Wiki Application FJP";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Application_FormClosing);
             this.Load += new System.EventHandler(this.Application_Load);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.statusStripLabel.ResumeLayout(false);
+            this.statusStripLabel.PerformLayout();
             this.groupBoxRadioButtons.ResumeLayout(false);
             this.groupBoxRadioButtons.PerformLayout();
             this.ResumeLayout(false);
@@ -259,11 +287,11 @@ namespace Windows_Application_FJP
 
         #endregion
 
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.StatusStrip statusStripLabel;
+        private System.Windows.Forms.ToolStripStatusLabel toolStatusStrip;
         private System.Windows.Forms.ListView listViewDisplay;
         private System.Windows.Forms.Button buttonSearch;
-        private System.Windows.Forms.TextBox textBoxInput;
+        private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Button buttonDelete;
@@ -278,6 +306,8 @@ namespace Windows_Application_FJP
         private System.Windows.Forms.RadioButton radioButtonNonLinear;
         private System.Windows.Forms.GroupBox groupBoxRadioButtons;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader listViewName;
+        private System.Windows.Forms.ColumnHeader listViewCategory;
     }
 }
 
