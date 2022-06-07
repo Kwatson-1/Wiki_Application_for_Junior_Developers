@@ -18,8 +18,6 @@ namespace Windows_Application_FJP
         {
             InitializeComponent();
         }
-        string directoryPath;
-        string fileName;
         static String saveFileName = "Information.bin";
         List<Information> infoCollection = new List<Information>();
         static String[] categoryArray = new String[] { "Abstract", "Array", "Graph", "Hash", "List", "Tree" };
@@ -33,8 +31,8 @@ namespace Windows_Application_FJP
             for (int i = 0; i < infoCollection.Count; i++)
             {
                 {
-                    ListViewItem lvi = new ListViewItem(infoCollection[i].Name);
-                    lvi.SubItems.Add(infoCollection[i].Category);
+                    ListViewItem lvi = new ListViewItem(infoCollection[i].GetName());
+                    lvi.SubItems.Add(infoCollection[i].GetCategory());
                     listViewDisplay.Items.Add(lvi);
                 }
             }
@@ -47,10 +45,10 @@ namespace Windows_Application_FJP
             try
             {
                 int selectedRecord = listViewDisplay.SelectedIndices[0];
-                textBoxName.Text = infoCollection[selectedRecord].Name;
+                textBoxName.Text = infoCollection[selectedRecord].GetName();
                 CheckRadioType(selectedRecord);
                 CheckCategoryType(selectedRecord);
-                textBoxDefinition.Text = infoCollection[selectedRecord].Definition;
+                textBoxDefinition.Text = infoCollection[selectedRecord].GetDefinition();
             }
             catch (System.ArgumentOutOfRangeException)
             {
@@ -69,7 +67,7 @@ namespace Windows_Application_FJP
         //If the textBoxName exists in the infoCollection List<Information> then function will return false meaning the name is not valid
         private Boolean ValidName(String textBoxName)
         {
-            return !infoCollection.Exists(info => info.Name.Equals(textBoxName));
+            return !infoCollection.Exists(info => info.GetName().Equals(textBoxName));
         }
         #endregion
         #region Method Add Structure
@@ -92,7 +90,7 @@ namespace Windows_Application_FJP
         {
             for (int i = 0; i < categoryArray.Length - 1; i++)
             {
-                if (infoCollection[var].Category.Equals(categoryArray[i]))
+                if (infoCollection[var].GetCategory().Equals(categoryArray[i]))
                 {
                     comboBoxCategory.SelectedIndex = i;
                 }
@@ -132,7 +130,7 @@ namespace Windows_Application_FJP
         //Accepts the index of the item selected in the listView and returns it so that the appropriate structure radioButton is selected.
         private void CheckRadioType(int var)
         {
-            if (infoCollection[var].Structure.Equals("Linear"))
+            if (infoCollection[var].GetStructure().Equals("Linear"))
             {
                 radioButtonLinear.Checked = true;
             }
@@ -165,10 +163,10 @@ namespace Windows_Application_FJP
                 {
                     foreach (var i in infoCollection)
                     {
-                        bw.Write(i.Name);
-                        bw.Write(i.Category);
-                        bw.Write(i.Structure);
-                        bw.Write(i.Definition);
+                        bw.Write(i.GetName());
+                        bw.Write(i.GetCategory());
+                        bw.Write(i.GetStructure());
+                        bw.Write(i.GetDefinition());
                     }
                     statusStripLabel.Text = "File saved successfully.";
                 }
@@ -196,6 +194,7 @@ namespace Windows_Application_FJP
             radioButtonNonLinear.Checked = false;
             comboBoxCategory.SelectedIndex = -1;
             textBoxDefinition.Clear();
+            
         }
         #endregion
         #region Method Check Fields Filled
@@ -221,13 +220,13 @@ namespace Windows_Application_FJP
                 {
                     Information info = new Information();
                     //Set name to text box input
-                    info.Name = textBoxName.Text.Trim();
+                    info.SetName(textBoxName.Text.Trim());
                     //Returns structure type string equal to the checked radio button.
-                    info.Structure = CheckStructureType();
+                    info.SetStructure(CheckStructureType());
                     //Set category to selected item in combobox
-                    info.Category = comboBoxCategory.Text;
+                    info.SetCategory(comboBoxCategory.Text);
                     //Set definition to text box input.
-                    info.Definition = textBoxDefinition.Text.Trim();
+                    info.SetDefinition(textBoxDefinition.Text.Trim());
                     //Add object to List
                     infoCollection.Add(info);
                     DisplayList();
@@ -297,35 +296,43 @@ namespace Windows_Application_FJP
             //    }
             //    br.Close();
             //}
+
             OpenFileDialog openFileBox = new OpenFileDialog();
             openFileBox.Title = "Open a bin file.";
             openFileBox.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+
             DialogResult dr = openFileBox.ShowDialog();
             if (dr == DialogResult.OK)
             {
+
+                listViewDisplay.Items.Clear();
                 string directoryPath = System.IO.Path.GetDirectoryName(openFileBox.FileName);
                 string fileName = System.IO.Path.GetFileName(openFileBox.FileName);
-                Information info = new Information();
-                try
-                {
-                    using (var stream = File.Open(directoryPath, FileMode.Open))
-                {
+                string pathToFile = directoryPath + fileName;
+                Console.WriteLine("File name is " + fileName);
+                Console.WriteLine("file path is " + directoryPath);
+                Console.WriteLine(pathToFile);
 
-                        using (var read = new BinaryReader(stream, Encoding.UTF8, false))
+                using (var stream = File.Open(pathToFile, FileMode.Open))
+                {
+                    using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
+                    {
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
                         {
-                            info.Name = read.ReadString();
-                            info.Category = read.ReadString();
-                            info.Structure = read.ReadString();
-                            info.Definition = read.ReadString();
+                            Information info = new Information();
+                            info.SetName(reader.ReadString());
+                            info.SetCategory(reader.ReadString());
+                            info.SetStructure(reader.ReadString());
+                            info.SetDefinition(reader.ReadString());
                             infoCollection.Add(info);
                         }
                     }
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    MessageBox.Show(ex.Message);
+                    stream.Close();
+                    DisplayList();
                 }
             }
+            Console.WriteLine(infoCollection[0].ToString());
+            Console.WriteLine(infoCollection[1].ToString());
         }
         #endregion
         #region Button Exit
@@ -363,10 +370,10 @@ namespace Windows_Application_FJP
                         var result = MessageBox.Show("Proceed with update?", "Edit Record", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.OK)
                         {
-                            infoCollection[selectedRecord].Name = textBoxName.Text.Trim();
-                            infoCollection[selectedRecord].Category = comboBoxCategory.Text;
-                            infoCollection[selectedRecord].Structure = CheckStructureType();
-                            infoCollection[selectedRecord].Definition = textBoxDefinition.Text.Trim();
+                            infoCollection[selectedRecord].SetName(textBoxName.Text.Trim());
+                            infoCollection[selectedRecord].SetCategory(comboBoxCategory.Text);
+                            infoCollection[selectedRecord].SetStructure(CheckStructureType());
+                            infoCollection[selectedRecord].SetDefinition(textBoxDefinition.Text.Trim());
                             DisplayList();
                         }
 
@@ -398,16 +405,19 @@ namespace Windows_Application_FJP
         {
             if (!textBoxSearch.Equals(""))
             {
-                infoCollection.Sort();
-                int index = infoCollection.BinarySearch(new Information() { Name = textBoxSearch.Text });
+                //infoCollection.Sort();
+                Information info = new Information();
+                info.SetName(textBoxSearch.Text);
+                int index = infoCollection.BinarySearch(info);
                 Console.WriteLine(index);
                 if (index >= 0)
                 {
+                    listViewDisplay.Items[index].Selected = true; ;
                     toolStatusStrip.Text = "Item found at index " + index + ".";
-                    textBoxName.Text = infoCollection[index].Name;
+                    textBoxName.Text = infoCollection[index].GetName();
                     CheckRadioType(index);
                     CheckCategoryType(index);
-                    textBoxDefinition.Text = infoCollection[index].Definition;
+                    textBoxDefinition.Text = infoCollection[index].GetDefinition();
                 }
                 else
                 {

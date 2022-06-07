@@ -16,10 +16,7 @@ namespace Wiki_Application_FJP
 
         public Information()
         {
-            name = Name;
-            category = Category;
-            structure = Structure;
-            definition = Definition;
+
         }
 
         public Information(string name, string category, string structure, string definition)
@@ -30,18 +27,52 @@ namespace Wiki_Application_FJP
             this.definition = definition;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Category { get => category; set => category = value; }
-        public string Structure { get => structure; set => structure = value; }
-        public string Definition { get => definition; set => definition = value; }
+        //public string Name { get => name; set => name = value; }
+        //public string Category { get => category; set => category = value; }
+        //public string Structure { get => structure; set => structure = value; }
+        //public string Definition { get => definition; set => definition = value; }
+
+        public string GetName()
+        {
+            return name;
+        }
+        public string GetCategory()
+        {
+            return category;
+        }
+        public string GetStructure()
+        {
+            return structure;
+        }
+        public string GetDefinition()
+        {
+            return definition;
+        }
+        public void SetName(string name)
+        {
+            this.name = name;
+        }
+        public void SetCategory(string category)
+        {
+            this.category = category;
+        }
+        public void SetStructure(string structure)
+        {
+            this.structure = structure;
+        }
+        public void SetDefinition(string definition)
+        {
+            this.definition = definition;
+        }
 
         public int CompareTo(Information other)
         {
-            return Name.CompareTo(other.name);
+            return name.CompareTo(other.name);
         }
+
         public static String ToString(Information info)
         {
-            String output = String.Format("Name: {0}\nCategory: {1}\nStructure: {2}\nDefinition: {3}", info.Name, info.category, info.structure, info.Definition);
+            String output = String.Format("Name: {0}\nCategory: {1}\nStructure: {2}\nDefinition: {3}", info.GetName(), info.GetCategory(), info.GetStructure(), info.GetDefinition());
             return output;
         }
     }

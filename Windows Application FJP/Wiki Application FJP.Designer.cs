@@ -74,6 +74,7 @@ namespace Windows_Application_FJP
             this.listViewDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.listViewName,
             this.listViewCategory});
+            this.listViewDisplay.FullRowSelect = true;
             this.listViewDisplay.HideSelection = false;
             this.listViewDisplay.Location = new System.Drawing.Point(252, 37);
             this.listViewDisplay.Name = "listViewDisplay";
