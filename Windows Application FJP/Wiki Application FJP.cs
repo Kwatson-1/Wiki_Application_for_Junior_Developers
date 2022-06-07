@@ -18,10 +18,11 @@ namespace Windows_Application_FJP
         {
             InitializeComponent();
         }
-
-        static String saveFileName = "";
+        string directoryPath;
+        string fileName;
+        static String saveFileName = "Information.bin";
         List<Information> infoCollection = new List<Information>();
-        static String[] categoryArray = new String[] { "Abstract", "Array", "Graph", "Hash", "List", "Tree", };
+        static String[] categoryArray = new String[] { "Abstract", "Array", "Graph", "Hash", "List", "Tree" };
 
         #region List View Display
         //Displays infoCollection items in the list view
@@ -43,11 +44,18 @@ namespace Windows_Application_FJP
         //Sets the text boxes, combo box and radio buttons to match the item selected in the list view display.
         private void listViewDisplay_Click(object sender, EventArgs e)
         {
-            int selectedRecord = listViewDisplay.SelectedIndices[0];
-            textBoxName.Text = infoCollection[selectedRecord].Name;
-            CheckRadioType(selectedRecord);
-            CheckCategoryType(selectedRecord);
-            textBoxDefinition.Text = infoCollection[selectedRecord].Definition;
+            try
+            {
+                int selectedRecord = listViewDisplay.SelectedIndices[0];
+                textBoxName.Text = infoCollection[selectedRecord].Name;
+                CheckRadioType(selectedRecord);
+                CheckCategoryType(selectedRecord);
+                textBoxDefinition.Text = infoCollection[selectedRecord].Definition;
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+
+            }
         }
         #endregion
         #region List View Double-Click -  Delete
@@ -138,7 +146,7 @@ namespace Windows_Application_FJP
         private void MethodSave()
         {
             SaveFileDialog saveFileBox = new SaveFileDialog();
-            saveFileBox.Filter = "Bat Files (*.bat) | *.bat";
+            saveFileBox.Filter = "Binary Files (*.bin) | *.bin";
             if (saveFileBox.ShowDialog() == DialogResult.OK)
             {
 
@@ -180,29 +188,61 @@ namespace Windows_Application_FJP
             comboBoxCategory.Items.AddRange(categoryArray);
         }
         #endregion
+        #region Method Clear All
+        private void ClearAllFields()
+        {
+            textBoxName.Clear();
+            radioButtonLinear.Checked = false;
+            radioButtonNonLinear.Checked = false;
+            comboBoxCategory.SelectedIndex = -1;
+            textBoxDefinition.Clear();
+        }
+        #endregion
+        #region Method Check Fields Filled
+        //Returns true if all fields are filled or false if one is not
+        public Boolean CheckFieldsFilled()
+        {
+            if (textBoxName.Text.Equals("")
+                || comboBoxCategory.Text.Equals("")
+                || CheckStructureType().Equals("")
+                || textBoxDefinition.Text.Equals(""))
+            {
+                return false;
+            }
+            else return true;
+        }
+        #endregion
         #region Button Add
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            if (ValidName(textBoxName.Text))
+            if (CheckFieldsFilled())
             {
-                Information info = new Information();
-                //Set name to text box input
-                info.Name = textBoxName.Text.Trim();
-                //Returns structure type string equal to the checked radio button.
-                info.Structure = CheckStructureType();
-                //Set category to selected item in combobox
-                info.Category = comboBoxCategory.Text;
-                //Set definition to text box input.
-                info.Definition = textBoxDefinition.Text.Trim();
-                //Add object to List
-                infoCollection.Add(info);
-                DisplayList();
-                Console.WriteLine(Information.ToString(info));
+                if (ValidName(textBoxName.Text))
+                {
+                    Information info = new Information();
+                    //Set name to text box input
+                    info.Name = textBoxName.Text.Trim();
+                    //Returns structure type string equal to the checked radio button.
+                    info.Structure = CheckStructureType();
+                    //Set category to selected item in combobox
+                    info.Category = comboBoxCategory.Text;
+                    //Set definition to text box input.
+                    info.Definition = textBoxDefinition.Text.Trim();
+                    //Add object to List
+                    infoCollection.Add(info);
+                    DisplayList();
+                    Console.WriteLine(Information.ToString(info));
+                }
+                else
+                {
+                    toolStatusStrip.Text = "Error: that item already exists.";
+                }
             }
             else
             {
-                toolStatusStrip.Text = "Error: that item already exists.";
+                toolStatusStrip.Text = "Error: check that all fields have values entered or selected.";
             }
+
         }
         #endregion
         #region Button Save
@@ -214,46 +254,77 @@ namespace Windows_Application_FJP
         #region Button Open
         private void buttonOpen_Click(object sender, EventArgs e)
         {
+            //OpenFileDialog openFileBox = new OpenFileDialog();
+            //openFileBox.Title = "Open a bin file.";
+            //openFileBox.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            //DialogResult dr = openFileBox.ShowDialog();
+            //if (dr == DialogResult.OK)
+            //{
+            //    string directoryPath = System.IO.Path.GetDirectoryName(openFileBox.FileName);
+            //    string fileName = System.IO.Path.GetFileName(openFileBox.FileName);
+            //    BinaryReader br;
+            //    infoCollection.Clear();
+            //    listViewDisplay.Items.Clear();
+            //    try
+            //    {
+            //        br = new BinaryReader(new FileStream(openFileBox.fileName, FileMode.Open));
+            //    }
+            //    catch (Exception fe)
+            //    {
+            //        MessageBox.Show(fe.Message + "\n Cannot open file for reading");
+            //        return;
+            //    }
+            //    while (br.BaseStream.Position != br.BaseStream.Length)
+            //    {
+            //        try
+            //        {
+            //            Information info = new Information();
+            //            info.Name = br.ReadString();
+            //            info.Category = br.ReadString();
+            //            info.Structure = br.ReadString();
+            //            info.Definition = br.ReadString();
+            //            infoCollection.Add(info);
+
+            //            toolStatusStrip.Text = "File loaded successfully.";
+            //        }
+
+            //        catch (Exception fe)
+            //        {
+            //            MessageBox.Show("Cannot read data from file or EOF" + fe);
+            //            break;
+            //        }
+            //        DisplayList();
+            //    }
+            //    br.Close();
+            //}
             OpenFileDialog openFileBox = new OpenFileDialog();
-            openFileBox.Title = "Open a bat file.";
-            openFileBox.Filter = "Bat files(*.bat)|*.bat|All files(*.*)|*.*";
+            openFileBox.Title = "Open a bin file.";
+            openFileBox.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
             DialogResult dr = openFileBox.ShowDialog();
             if (dr == DialogResult.OK)
             {
-                BinaryReader br;
-                infoCollection.Clear();
-                listViewDisplay.Items.Clear();
+                string directoryPath = System.IO.Path.GetDirectoryName(openFileBox.FileName);
+                string fileName = System.IO.Path.GetFileName(openFileBox.FileName);
+                Information info = new Information();
                 try
                 {
-                    br = new BinaryReader(new FileStream(openFileBox.FileName, FileMode.Open));
-                }
-                catch (Exception fe)
+                    using (var stream = File.Open(directoryPath, FileMode.Open))
                 {
-                    MessageBox.Show(fe.Message + "\n Cannot open file for reading");
-                    return;
+
+                        using (var read = new BinaryReader(stream, Encoding.UTF8, false))
+                        {
+                            info.Name = read.ReadString();
+                            info.Category = read.ReadString();
+                            info.Structure = read.ReadString();
+                            info.Definition = read.ReadString();
+                            infoCollection.Add(info);
+                        }
+                    }
                 }
-                while (br.BaseStream.Position != br.BaseStream.Length)
+                catch (UnauthorizedAccessException ex)
                 {
-                    try
-                    {
-                        Information info = new Information();
-                        info.Name = br.ReadString();
-                        info.Category = br.ReadString();
-                        info.Structure = br.ReadString();
-                        info.Definition = br.ReadString();
-                        infoCollection.Add(info);
-
-                        toolStatusStrip.Text = "File loaded successfully.";
-                    }
-
-                    catch (Exception fe)
-                    {
-                        MessageBox.Show("Cannot read data from file or EOF" + fe);
-                        break;
-                    }
-                    DisplayList();
+                    MessageBox.Show(ex.Message);
                 }
-                br.Close();
             }
         }
         #endregion
@@ -321,8 +392,8 @@ namespace Windows_Application_FJP
 
         }
         #endregion
-        //Utilises the inbuilt List<T>.BinarySearch function to search for the value entered into the search box and return the index of the List item where it is found.
         #region Button Search
+        //Utilises the inbuilt List<T>.BinarySearch function to search for the value entered into the search box and return the index of the List item where it is found.
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (!textBoxSearch.Equals(""))
@@ -380,29 +451,6 @@ namespace Windows_Application_FJP
             ClearAllFields();
         }
         #endregion
-        #region Method Clear All
-        private void ClearAllFields()
-        {
-            textBoxName.Clear();
-            radioButtonLinear.Checked = false;
-            radioButtonNonLinear.Checked = false;
-            comboBoxCategory.SelectedIndex = -1;
-            textBoxDefinition.Clear();
-        }
-        #endregion
-        #region Method Check Fields Filled
-        //Returns true if all fields are filled or false if one is not
-        public Boolean CheckFieldsFilled()
-        {
-            if (textBoxName.Text.Equals("")
-                || comboBoxCategory.Text.Equals("")
-                || CheckStructureType().Equals("")
-                || textBoxDefinition.Text.Equals(""))
-            {
-                return false;
-            }
-            else return true;
-        }
-        #endregion
+
     }
 }
