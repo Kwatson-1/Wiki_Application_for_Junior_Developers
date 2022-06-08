@@ -1,0 +1,2 @@
+List length prior to delete is: 12
+List length post delete is: 11

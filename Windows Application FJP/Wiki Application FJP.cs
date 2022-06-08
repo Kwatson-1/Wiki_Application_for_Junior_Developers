@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Wiki_Application_FJP;
+using System.Diagnostics;
 
 namespace Windows_Application_FJP
 {
@@ -18,8 +19,12 @@ namespace Windows_Application_FJP
         {
             InitializeComponent();
         }
+        //Default file name.
         static String saveFileName = "Information.bin";
+        //List instantiation
         List<Information> infoCollection = new List<Information>();
+        //Array for populating the combo box.
+
         static String[] categoryArray = new String[] { "Abstract", "Array", "Graph", "Hash", "List", "Tree" };
 
         #region List View Display
@@ -57,6 +62,7 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region List View Double-Click -  Delete
+        //Calls the delete method when an item is double clicked on in the listBox.
         private void listViewDisplay_DoubleClick(object sender, EventArgs e)
         {
             DeleteMethod();
@@ -67,7 +73,16 @@ namespace Windows_Application_FJP
         //If the textBoxName exists in the infoCollection List<Information> then function will return false meaning the name is not valid
         private Boolean ValidName(String textBoxName)
         {
-            return !infoCollection.Exists(info => info.GetName().Equals(textBoxName));
+            for (int i = 0; i<infoCollection.Count; i++)
+            {
+                if (infoCollection[i].GetName().Equals(textBoxName))
+                {
+
+                    return false;
+                }
+            }
+            return true;
+            //return !infoCollection.Exists(info => info.GetName().Equals(textBoxName));
         }
         #endregion
         #region Method Add Structure
@@ -103,19 +118,19 @@ namespace Windows_Application_FJP
         {
             try
             {
+
                 int selectedRecord = listViewDisplay.SelectedIndices[0];
+
                 DialogResult deleteOption = MessageBox.Show("Do you wish to delete this item?",
                     "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (deleteOption == DialogResult.Yes)
                 {
-
+                    toolStatusStrip.Text = String.Format("Item name: '{0}' deleted successfully.", infoCollection[selectedRecord].GetName());
                     infoCollection.Remove(infoCollection[selectedRecord]);
-                }
-                else
-                {
+                    ClearAllFields();
+                    textBoxName.Focus();
 
                 }
-
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -141,13 +156,16 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Method Save
+        //Uses a save file dialog box to enter the file name and choose the file save location. Writes to the file using a binary writer.
         private void MethodSave()
         {
-            SaveFileDialog saveFileBox = new SaveFileDialog();
-            saveFileBox.Filter = "Binary Files (*.bin) | *.bin";
+            SaveFileDialog saveFileBox = new SaveFileDialog
+            {
+                InitialDirectory = Environment.CurrentDirectory,
+                Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*",
+            };
             if (saveFileBox.ShowDialog() == DialogResult.OK)
             {
-
                 BinaryWriter bw;
                 try
                 {
@@ -168,7 +186,7 @@ namespace Windows_Application_FJP
                         bw.Write(i.GetStructure());
                         bw.Write(i.GetDefinition());
                     }
-                    statusStripLabel.Text = "File saved successfully.";
+                    toolStatusStrip.Text = String.Format("File saved successfully.");
                 }
                 catch (Exception fe)
                 {
@@ -187,6 +205,7 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Method Clear All
+        //Method for clearing the text boxes, combo box and radio buttons.
         private void ClearAllFields()
         {
             textBoxName.Clear();
@@ -194,7 +213,6 @@ namespace Windows_Application_FJP
             radioButtonNonLinear.Checked = false;
             comboBoxCategory.SelectedIndex = -1;
             textBoxDefinition.Clear();
-            
         }
         #endregion
         #region Method Check Fields Filled
@@ -212,6 +230,7 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Button Add
+        //Button for adding items to the List<Information>.
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             if (CheckFieldsFilled())
@@ -219,8 +238,8 @@ namespace Windows_Application_FJP
                 if (ValidName(textBoxName.Text))
                 {
                     Information info = new Information();
-                    //Set name to text box input
-                    info.SetName(textBoxName.Text.Trim());
+                    //Set name to text box input and capitalize it
+                    info.SetName(textBoxName.Text.Trim().Substring(0, 1).ToUpper() + textBoxName.Text.Substring(1));
                     //Returns structure type string equal to the checked radio button.
                     info.SetStructure(CheckStructureType());
                     //Set category to selected item in combobox
@@ -230,7 +249,9 @@ namespace Windows_Application_FJP
                     //Add object to List
                     infoCollection.Add(info);
                     DisplayList();
-                    Console.WriteLine(Information.ToString(info));
+                    ClearAllFields();
+                    textBoxName.Focus();
+                    toolStatusStrip.Text = String.Format("Item name: '{0}' added successfully.", info.GetName());
                 }
                 else
                 {
@@ -245,70 +266,33 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Button Save
+        //Calls the save method when the save button is clicked.
         private void buttonSave_Click(object sender, EventArgs e)
         {
             MethodSave();
         }
         #endregion
         #region Button Open
+        //Uses an OpenFileDialog box for selecting a bin file to open and loads the contents into the List<Information> collection via a BinaryReader. 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            //OpenFileDialog openFileBox = new OpenFileDialog();
-            //openFileBox.Title = "Open a bin file.";
-            //openFileBox.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
-            //DialogResult dr = openFileBox.ShowDialog();
-            //if (dr == DialogResult.OK)
-            //{
-            //    string directoryPath = System.IO.Path.GetDirectoryName(openFileBox.FileName);
-            //    string fileName = System.IO.Path.GetFileName(openFileBox.FileName);
-            //    BinaryReader br;
-            //    infoCollection.Clear();
-            //    listViewDisplay.Items.Clear();
-            //    try
-            //    {
-            //        br = new BinaryReader(new FileStream(openFileBox.fileName, FileMode.Open));
-            //    }
-            //    catch (Exception fe)
-            //    {
-            //        MessageBox.Show(fe.Message + "\n Cannot open file for reading");
-            //        return;
-            //    }
-            //    while (br.BaseStream.Position != br.BaseStream.Length)
-            //    {
-            //        try
-            //        {
-            //            Information info = new Information();
-            //            info.Name = br.ReadString();
-            //            info.Category = br.ReadString();
-            //            info.Structure = br.ReadString();
-            //            info.Definition = br.ReadString();
-            //            infoCollection.Add(info);
 
-            //            toolStatusStrip.Text = "File loaded successfully.";
-            //        }
-
-            //        catch (Exception fe)
-            //        {
-            //            MessageBox.Show("Cannot read data from file or EOF" + fe);
-            //            break;
-            //        }
-            //        DisplayList();
-            //    }
-            //    br.Close();
-            //}
-
-            OpenFileDialog openFileBox = new OpenFileDialog();
-            openFileBox.Title = "Open a bin file.";
-            openFileBox.Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*";
+            OpenFileDialog openFileBox = new OpenFileDialog
+            {
+                Title = "Open a bin file.",
+                Filter = "Binary files(*.bin)|*.bin|All files(*.*)|*.*",
+                InitialDirectory = Environment.CurrentDirectory
+            };
 
             DialogResult dr = openFileBox.ShowDialog();
             if (dr == DialogResult.OK)
             {
-
                 listViewDisplay.Items.Clear();
+                //Gets the directory path of the file selected in the openFileBox.
                 string directoryPath = System.IO.Path.GetDirectoryName(openFileBox.FileName);
+                //Gets the filename of the item selected in the openFileBox.
                 string fileName = System.IO.Path.GetFileName(openFileBox.FileName);
-                string pathToFile = directoryPath + fileName;
+                string pathToFile = directoryPath + "\\" + fileName;
                 Console.WriteLine("File name is " + fileName);
                 Console.WriteLine("file path is " + directoryPath);
                 Console.WriteLine(pathToFile);
@@ -329,10 +313,9 @@ namespace Windows_Application_FJP
                     }
                     stream.Close();
                     DisplayList();
+                    toolStatusStrip.Text = String.Format("File: '{0}' opened successfully.", fileName.Remove(fileName.Length - 4), 4);
                 }
             }
-            Console.WriteLine(infoCollection[0].ToString());
-            Console.WriteLine(infoCollection[1].ToString());
         }
         #endregion
         #region Button Exit
@@ -358,6 +341,7 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Button Edit
+        //Overrites the edited record of the currently selected item in the ListView.
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             try
@@ -365,6 +349,7 @@ namespace Windows_Application_FJP
                 int selectedRecord = listViewDisplay.SelectedIndices[0];
                 if (selectedRecord >= 0)
                 {
+
                     if (CheckFieldsFilled())
                     {
                         var result = MessageBox.Show("Proceed with update?", "Edit Record", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -375,8 +360,10 @@ namespace Windows_Application_FJP
                             infoCollection[selectedRecord].SetStructure(CheckStructureType());
                             infoCollection[selectedRecord].SetDefinition(textBoxDefinition.Text.Trim());
                             DisplayList();
+                            toolStatusStrip.Text = "Item edited successfully.";
+                            ClearAllFields();
+                            textBoxName.Focus();
                         }
-
                     }
                     else
                     {
@@ -387,22 +374,22 @@ namespace Windows_Application_FJP
                 {
                     toolStatusStrip.Text = "Error: select a valid item to edit.";
                 }
-                else if (CheckFieldsFilled())
-                {
-
-                }
             }
             catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show("Error: select a valid item to edit.");
             }
-
         }
         #endregion
         #region Button Search
         //Utilises the inbuilt List<T>.BinarySearch function to search for the value entered into the search box and return the index of the List item where it is found.
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            if (listViewDisplay.SelectedItems.Count != 0)
+            {
+                listViewDisplay.SelectedItems[0].Selected = false;
+            }
+
             if (!textBoxSearch.Equals(""))
             {
                 //infoCollection.Sort();
@@ -419,6 +406,10 @@ namespace Windows_Application_FJP
                     CheckCategoryType(index);
                     textBoxDefinition.Text = infoCollection[index].GetDefinition();
                 }
+                else if (infoCollection.Count == 0)
+                {
+                    toolStatusStrip.Text = "Error: there is nothing to search.";
+                }
                 else
                 {
                     toolStatusStrip.Text = "Item not found.";
@@ -431,32 +422,34 @@ namespace Windows_Application_FJP
         }
         #endregion
         #region Button Delete
+        //Calls the delete method for removing the item selected in the listBox.
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             DeleteMethod();
         }
         #endregion
         #region Unused Methods
-        private void label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GroupBox1_Enter(object sender, EventArgs e)
         {
 
         }
-        private void listViewDisplay_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListViewDisplay_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-        private void textBoxInput_TextChanged(object sender, EventArgs e)
+        private void TextBoxInput_TextChanged(object sender, EventArgs e)
         {
 
         }
         #endregion
         #region Text Box Name - Double Click
-        private void textBoxName_DoubleClick(object sender, EventArgs e)
+        //When double clicking the name text box will clear all fields.
+        private void TextBoxName_DoubleClick(object sender, EventArgs e)
         {
             ClearAllFields();
         }

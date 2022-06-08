@@ -29,6 +29,7 @@ namespace Windows_Application_FJP
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.statusStripLabel = new System.Windows.Forms.StatusStrip();
             this.toolStatusStrip = new System.Windows.Forms.ToolStripStatusLabel();
             this.listViewDisplay = new System.Windows.Forms.ListView();
@@ -50,6 +51,7 @@ namespace Windows_Application_FJP
             this.radioButtonNonLinear = new System.Windows.Forms.RadioButton();
             this.groupBoxRadioButtons = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.statusStripLabel.SuspendLayout();
             this.groupBoxRadioButtons.SuspendLayout();
             this.SuspendLayout();
@@ -79,10 +81,11 @@ namespace Windows_Application_FJP
             this.listViewDisplay.Location = new System.Drawing.Point(252, 37);
             this.listViewDisplay.Name = "listViewDisplay";
             this.listViewDisplay.Size = new System.Drawing.Size(225, 347);
-            this.listViewDisplay.TabIndex = 1;
+            this.listViewDisplay.TabIndex = 13;
+            this.listViewDisplay.Tag = "Items in the collection and their category are displayed here.";
             this.listViewDisplay.UseCompatibleStateImageBehavior = false;
             this.listViewDisplay.View = System.Windows.Forms.View.Details;
-            this.listViewDisplay.SelectedIndexChanged += new System.EventHandler(this.listViewDisplay_SelectedIndexChanged);
+            this.listViewDisplay.SelectedIndexChanged += new System.EventHandler(this.ListViewDisplay_SelectedIndexChanged);
             this.listViewDisplay.Click += new System.EventHandler(this.listViewDisplay_Click);
             this.listViewDisplay.DoubleClick += new System.EventHandler(this.listViewDisplay_DoubleClick);
             // 
@@ -101,7 +104,7 @@ namespace Windows_Application_FJP
             this.buttonSearch.Location = new System.Drawing.Point(403, 10);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(74, 23);
-            this.buttonSearch.TabIndex = 2;
+            this.buttonSearch.TabIndex = 12;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
@@ -111,16 +114,19 @@ namespace Windows_Application_FJP
             this.textBoxSearch.Location = new System.Drawing.Point(252, 11);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(145, 20);
-            this.textBoxSearch.TabIndex = 3;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxInput_TextChanged);
+            this.textBoxSearch.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.textBoxSearch, "Enter item to search here.");
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.TextBoxInput_TextChanged);
             // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(13, 10);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(74, 34);
-            this.buttonAdd.TabIndex = 4;
+            this.buttonAdd.TabIndex = 6;
+            this.buttonAdd.Tag = "";
             this.buttonAdd.Text = "Add";
+            this.toolTip1.SetToolTip(this.buttonAdd, "Adds  an item to the list.");
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.ButtonAdd_Click);
             // 
@@ -129,8 +135,10 @@ namespace Windows_Application_FJP
             this.buttonEdit.Location = new System.Drawing.Point(90, 10);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(74, 34);
-            this.buttonEdit.TabIndex = 5;
+            this.buttonEdit.TabIndex = 7;
+            this.buttonEdit.Tag = "";
             this.buttonEdit.Text = "Edit";
+            this.toolTip1.SetToolTip(this.buttonEdit, "Edits the item selected in the list.");
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
@@ -139,8 +147,9 @@ namespace Windows_Application_FJP
             this.buttonDelete.Location = new System.Drawing.Point(167, 10);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(74, 34);
-            this.buttonDelete.TabIndex = 6;
+            this.buttonDelete.TabIndex = 8;
             this.buttonDelete.Text = "Delete";
+            this.toolTip1.SetToolTip(this.buttonDelete, "Deletes the item selected from the list.");
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
@@ -151,7 +160,8 @@ namespace Windows_Application_FJP
             this.comboBoxCategory.Location = new System.Drawing.Point(13, 90);
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(150, 21);
-            this.comboBoxCategory.TabIndex = 7;
+            this.comboBoxCategory.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.comboBoxCategory, "Select item cateogry here.");
             // 
             // label1
             // 
@@ -161,7 +171,7 @@ namespace Windows_Application_FJP
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 8;
             this.label1.Text = "Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Click += new System.EventHandler(this.Label1_Click);
             // 
             // label2
             // 
@@ -177,16 +187,18 @@ namespace Windows_Application_FJP
             this.textBoxName.Location = new System.Drawing.Point(13, 58);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(150, 20);
-            this.textBoxName.TabIndex = 10;
-            this.textBoxName.DoubleClick += new System.EventHandler(this.textBoxName_DoubleClick);
+            this.textBoxName.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxName, "Enter item name here.");
+            this.textBoxName.DoubleClick += new System.EventHandler(this.TextBoxName_DoubleClick);
             // 
             // buttonOpen
             // 
             this.buttonOpen.Location = new System.Drawing.Point(136, 350);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(105, 34);
-            this.buttonOpen.TabIndex = 11;
+            this.buttonOpen.TabIndex = 10;
             this.buttonOpen.Text = "Open";
+            this.toolTip1.SetToolTip(this.buttonOpen, "For opening an existing file.");
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
@@ -195,8 +207,9 @@ namespace Windows_Application_FJP
             this.buttonSave.Location = new System.Drawing.Point(13, 350);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(105, 34);
-            this.buttonSave.TabIndex = 12;
+            this.buttonSave.TabIndex = 9;
             this.buttonSave.Text = "Save";
+            this.toolTip1.SetToolTip(this.buttonSave, "For saving the current list to file.");
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
@@ -206,7 +219,8 @@ namespace Windows_Application_FJP
             this.textBoxDefinition.Multiline = true;
             this.textBoxDefinition.Name = "textBoxDefinition";
             this.textBoxDefinition.Size = new System.Drawing.Size(228, 136);
-            this.textBoxDefinition.TabIndex = 13;
+            this.textBoxDefinition.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxDefinition, "Enter item definition here.");
             // 
             // radioButtonLinear
             // 
@@ -214,9 +228,10 @@ namespace Windows_Application_FJP
             this.radioButtonLinear.Location = new System.Drawing.Point(25, 24);
             this.radioButtonLinear.Name = "radioButtonLinear";
             this.radioButtonLinear.Size = new System.Drawing.Size(54, 17);
-            this.radioButtonLinear.TabIndex = 14;
+            this.radioButtonLinear.TabIndex = 3;
             this.radioButtonLinear.TabStop = true;
             this.radioButtonLinear.Text = "Linear";
+            this.toolTip1.SetToolTip(this.radioButtonLinear, "Check to assign a linear structure type to the item.");
             this.radioButtonLinear.UseVisualStyleBackColor = true;
             // 
             // radioButtonNonLinear
@@ -225,9 +240,10 @@ namespace Windows_Application_FJP
             this.radioButtonNonLinear.Location = new System.Drawing.Point(126, 24);
             this.radioButtonNonLinear.Name = "radioButtonNonLinear";
             this.radioButtonNonLinear.Size = new System.Drawing.Size(77, 17);
-            this.radioButtonNonLinear.TabIndex = 15;
+            this.radioButtonNonLinear.TabIndex = 4;
             this.radioButtonNonLinear.TabStop = true;
             this.radioButtonNonLinear.Text = "Non-Linear";
+            this.toolTip1.SetToolTip(this.radioButtonNonLinear, "Check to assign a non-linear structure type to the item.");
             this.radioButtonNonLinear.UseVisualStyleBackColor = true;
             // 
             // groupBoxRadioButtons
@@ -240,7 +256,7 @@ namespace Windows_Application_FJP
             this.groupBoxRadioButtons.TabIndex = 16;
             this.groupBoxRadioButtons.TabStop = false;
             this.groupBoxRadioButtons.Text = "Structure";
-            this.groupBoxRadioButtons.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBoxRadioButtons.Enter += new System.EventHandler(this.GroupBox1_Enter);
             // 
             // label3
             // 
@@ -309,6 +325,7 @@ namespace Windows_Application_FJP
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ColumnHeader listViewName;
         private System.Windows.Forms.ColumnHeader listViewCategory;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
