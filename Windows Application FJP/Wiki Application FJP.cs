@@ -66,7 +66,6 @@ namespace Windows_Application_FJP
         private void listViewDisplay_DoubleClick(object sender, EventArgs e)
         {
             DeleteMethod();
-
         }
         #endregion
         #region Method Check Name Validity
@@ -213,6 +212,7 @@ namespace Windows_Application_FJP
             radioButtonNonLinear.Checked = false;
             comboBoxCategory.SelectedIndex = -1;
             textBoxDefinition.Clear();
+            toolStatusStrip.Text = "All fields cleared.";
         }
         #endregion
         #region Method Check Fields Filled
