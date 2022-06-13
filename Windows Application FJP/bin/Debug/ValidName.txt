@@ -1,2 +1,2 @@
-'Array' is valid, returning true.
-'Array' is non-valid, returning false.
+Array is valid, returning true.
+Array is non-valid, returning false.
