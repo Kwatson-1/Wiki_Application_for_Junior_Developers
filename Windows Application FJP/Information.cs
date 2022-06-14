@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Wiki_Application_FJP
 {
+    /*
+     * 6.1 Create a separate class file to hold the four data items of the Data Structure (use the Data Structure 
+     * Matrix as a guide). Use auto-implemented properties for the fields which must be of type “string”. Save the 
+     * class as “Information.cs”.
+    */
     [Serializable]
     class Information : IComparable<Information>
     {
@@ -27,14 +32,48 @@ namespace Wiki_Application_FJP
             this.definition = definition;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Category { get => category; set => category = value; }
-        public string Structure { get => structure; set => structure = value; }
-        public string Definition { get => definition; set => definition = value; }
+        public string GetName()
+        {
+            return name;
+        }
+        public string GetCategory()
+        {
+            return category;
+        }
+        public string GetStructure()
+        {
+            return structure;
+        }
+        public string GetDefinition()
+        {
+            return definition;
+        }
+        public void SetName(string name)
+        {
+            this.name = name;
+        }
+        public void SetCategory(string category)
+        {
+            this.category = category;
+        }
+        public void SetStructure(string structure)
+        {
+            this.structure = structure;
+        }
+        public void SetDefinition(string definition)
+        {
+            this.definition = definition;
+        }
 
         public int CompareTo(Information other)
         {
-            return Name.CompareTo(other.name);
+            return name.CompareTo(other.name);
+        }
+
+        public static String ToString(Information info)
+        {
+            String output = String.Format("Name: {0}\nCategory: {1}\nStructure: {2}\nDefinition: {3}", info.GetName(), info.GetCategory(), info.GetStructure(), info.GetDefinition());
+            return output;
         }
     }
 }

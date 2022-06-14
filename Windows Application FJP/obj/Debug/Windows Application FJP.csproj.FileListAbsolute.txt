@@ -8,3 +8,24 @@ C:\Users\Kyle\source\repos\Windows Application FJP\obj\Debug\Windows Application
 C:\Users\Kyle\source\repos\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.CoreCompileInputs.cache
 C:\Users\Kyle\source\repos\Windows Application FJP\obj\Debug\Windows Application FJP.exe
 C:\Users\Kyle\source\repos\Windows Application FJP\obj\Debug\Windows Application FJP.pdb
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.exe.config
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.exe
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.pdb
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.AssemblyReference.cache
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows_Application_FJP.Properties.Resources.resources
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows_Application_FJP.Application.resources
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.GenerateResource.cache
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.CoreCompileInputs.cache
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.exe
+C:\Users\Kyle\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.pdb
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.exe.config
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.exe
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\bin\Debug\Windows Application FJP.pdb
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.AssemblyReference.cache
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.SuggestedBindingRedirects.cache
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows_Application_FJP.Properties.Resources.resources
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows_Application_FJP.Application.resources
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.GenerateResource.cache
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.csproj.CoreCompileInputs.cache
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.exe
+C:\Users\30048165\Documents\GitHub\Wiki_Application_for_Junior_Developers\Windows Application FJP\obj\Debug\Windows Application FJP.pdb
