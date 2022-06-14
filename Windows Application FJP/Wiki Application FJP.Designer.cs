@@ -190,6 +190,7 @@ namespace Windows_Application_FJP
             this.textBoxName.TabIndex = 1;
             this.toolTip1.SetToolTip(this.textBoxName, "Enter item name here.");
             this.textBoxName.DoubleClick += new System.EventHandler(this.TextBoxName_DoubleClick);
+            this.textBoxName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxName_KeyPress);
             // 
             // buttonOpen
             // 

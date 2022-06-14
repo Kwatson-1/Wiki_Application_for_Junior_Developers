@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Wiki_Application_FJP
 {
+    /*
+     * 6.1 Create a separate class file to hold the four data items of the Data Structure (use the Data Structure 
+     * Matrix as a guide). Use auto-implemented properties for the fields which must be of type “string”. Save the 
+     * class as “Information.cs”.
+    */
     [Serializable]
     class Information : IComparable<Information>
     {
@@ -26,11 +31,6 @@ namespace Wiki_Application_FJP
             this.structure = structure;
             this.definition = definition;
         }
-
-        //public string Name { get => name; set => name = value; }
-        //public string Category { get => category; set => category = value; }
-        //public string Structure { get => structure; set => structure = value; }
-        //public string Definition { get => definition; set => definition = value; }
 
         public string GetName()
         {
